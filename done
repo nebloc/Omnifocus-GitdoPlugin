@@ -1,0 +1,16 @@
+ObjC.import('Foundation')
+
+var args = $.NSProcessInfo.processInfo.arguments
+var id = $(args.objectAtIndex(4)).js
+
+var of = Application("Omnifocus"), doc = of.defaultDocument
+
+function taskWithId(id) {
+    return doc.flattenedTasks.whose({id: id})[0]
+}
+
+var task = taskWithId(id)
+
+task.markComplete()
+
+console.log(id)

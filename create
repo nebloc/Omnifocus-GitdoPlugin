@@ -1,0 +1,25 @@
+ObjC.import('Foundation')
+
+var args = $.NSProcessInfo.processInfo.arguments
+var id = $(args.objectAtIndex(4)).js
+var taskJson = $(args.objectAtIndex(5)).js
+
+var t = JSON.parse(taskJson)
+
+var of = Application("Omnifocus"), doc = of.defaultDocument
+
+function taskWithId(id) {
+    return doc.flattenedTasks.whose({id: id})[0]
+}
+function getContext(context) { 
+    return doc.flattenedContexts.whose({name: context})[0];
+}
+
+var context = getContext("Code")
+var task = taskWithId(id)
+var link = "https://github.com/nebloc/test/blob/{}/{}#L{}".format(t.hash, t.file_name, t.file_line)
+
+var note = task.note
+note.text = t.file_name + "#L" + t.file_line.toString() + "\nHash: "+t.hash + "\nBranch: "+ t.branch + link
+
+//project.tasks.push(task)

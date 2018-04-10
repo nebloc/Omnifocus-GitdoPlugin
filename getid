@@ -1,0 +1,21 @@
+ObjC.import('Foundation')
+
+var args = $.NSProcessInfo.processInfo.arguments
+var taskJson = $(args.objectAtIndex(4)).js
+var t = JSON.parse(taskJson)
+var of = Application("Omnifocus"), doc = of.defaultDocument
+
+function getProject(project) { 
+    return doc.flattenedProjects.whose({name: project})[0];
+}
+function getContext(context) { 
+    return doc.flattenedContexts.whose({name: context})[0];
+}
+var project = getProject("TODOs")
+var context = getContext("Waiting")
+var name = t.task_name
+var note = t.file_name + "#L"+ t.file_line.toString()
+var task = of.Task({name: name, note: note, context: context, deferDate: null, dueDate: null, flagged: false});
+var ind = project.tasks.push(task)
+var id = project.tasks[ind-1].id()
+console.log(id)
