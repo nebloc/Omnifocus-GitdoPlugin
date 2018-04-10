@@ -16,8 +16,10 @@ function getContext(context) {
 }
 
 var context = getContext("Code")
+
 var task = taskWithId(id)
-var link = "https://github.com/nebloc/test/blob/{}/{}#L{}".format(t.hash, t.file_name, t.file_line)
+var link = "https://github.com/nebloc/test/blob/"+t.hash + "/" + t.file_name + "#L" + t.file_line
+task.context = context
 
 var note = task.note
 note.text = t.file_name + "#L" + t.file_line.toString() + "\nHash: "+t.hash + "\nBranch: "+ t.branch + link
