@@ -1,4 +1,6 @@
 ObjC.import('Foundation')
+ObjC.import('stdlib')
+
 
 var args = $.NSProcessInfo.processInfo.arguments
 var id = $(args.objectAtIndex(4)).js
@@ -14,3 +16,5 @@ var task = taskWithId(id)
 task.markComplete()
 
 console.log(id)
+
+$.exit(0)

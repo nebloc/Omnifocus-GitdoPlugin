@@ -1,4 +1,5 @@
 ObjC.import('Foundation')
+ObjC.import('stdlib')
 
 var args = $.NSProcessInfo.processInfo.arguments
 var taskJson = $(args.objectAtIndex(4)).js
@@ -19,3 +20,5 @@ var task = of.Task({name: name, note: note, context: context, deferDate: null, d
 var ind = project.tasks.push(task)
 var id = project.tasks[ind-1].id()
 console.log(id)
+
+$.exit(0)

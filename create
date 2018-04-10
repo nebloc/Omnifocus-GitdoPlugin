@@ -1,4 +1,5 @@
 ObjC.import('Foundation')
+ObjC.import('stdlib')
 
 var args = $.NSProcessInfo.processInfo.arguments
 var id = $(args.objectAtIndex(4)).js
@@ -23,3 +24,4 @@ task.context = context
 
 var note = task.note
 note.text = t.file_name + "#L" + t.file_line.toString() + "\nHash: "+t.hash + "\nBranch: "+ t.branch + link
+$.exit(0)
