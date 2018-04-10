@@ -21,5 +21,3 @@ var link = "https://github.com/nebloc/test/blob/{}/{}#L{}".format(t.hash, t.file
 
 var note = task.note
 note.text = t.file_name + "#L" + t.file_line.toString() + "\nHash: "+t.hash + "\nBranch: "+ t.branch + link
-
-//project.tasks.push(task)
