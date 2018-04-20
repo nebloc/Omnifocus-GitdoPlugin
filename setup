@@ -1,1 +1,37 @@
-console.log("No setup requiered")
+var app = Application.currentApplication();
+app.includeStandardAdditions = true;
+
+function prompt(text, defaultAnswer) {
+	var options = { defaultAnswer: defaultAnswer || '' }
+	try {
+		return app.displayDialog(text, options).textReturned
+	} catch (e) {
+		return ""
+	}
+}
+
+var project = ""
+while (project == "") {
+	project = prompt("What project do you want to use?", "");
+}
+console.log("Using project "+project)
+
+var context = ""
+while (context == "") {
+	context = prompt("What context do you want to use?", "");
+}
+console.log("Using context "+context)
+
+var text = "{\"project\":\""+project+"\", \"context\":\""+context+"\"}"
+
+var openedFile = app.openForAccess(Path("./config.json"), { writePermission: true });
+
+// Clear the file if content should be overwritten
+app.setEof(openedFile, { to: 0 })
+
+// Write the new content to the file
+app.write(text, { to: openedFile, startingAt: app.getEof(openedFile) })
+
+// Close the file
+app.closeAccess(openedFile)
+ 

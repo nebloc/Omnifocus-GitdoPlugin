@@ -1,3 +1,5 @@
+var app = Application.currentApplication();
+app.includeStandardAdditions = true
 ObjC.import('Foundation')
 ObjC.import('stdlib')
 
@@ -12,13 +14,19 @@ function getProject(project) {
 function getContext(context) { 
     return doc.flattenedContexts.whose({name: context})[0];
 }
-var project = getProject("TODOs")
-var context = getContext("Waiting")
+
+var openedFile = app.openForAccess(Path("config.json"));
+var filecontent = app.read(openedFile)
+var config = JSON.parse(filecontent)
+
+var project = getProject(config.project)
+var context = getContext(config.context)
 var name = t.task_name
 var note = t.file_name + "#L"+ t.file_line.toString()
 var task = of.Task({name: name, note: note, context: context, deferDate: null, dueDate: null, flagged: false});
 var ind = project.tasks.push(task)
 var id = project.tasks[ind-1].id()
 console.log(id)
+app.closeAccess(openedFile)
 
 $.exit(0)
